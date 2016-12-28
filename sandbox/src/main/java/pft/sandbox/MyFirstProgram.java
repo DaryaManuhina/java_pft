@@ -21,7 +21,8 @@ public class MyFirstProgram {
     System.out.println("Расстояние между двумя точками с координатами" + p1.x + "," + p1.y + " и " + p2.x + "," + p2.y + " = " + distance(p1, p2));
 
     System.out.println(p2.newDistance(p1));
-  }
+
+     }
 
   public static void hello(String somebody) {
      System.out.println("Hello, " + somebody + "!");
