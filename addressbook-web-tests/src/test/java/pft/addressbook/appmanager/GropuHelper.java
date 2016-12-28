@@ -7,16 +7,15 @@ import pft.addressbook.model.GroupData;
 /**
  * Created by asus-1 on 28.12.2016.
  */
-public class GropuHelper {
-  private FirefoxDriver wd;
+public class GropuHelper extends HelperBase {
 
 
   public GropuHelper(FirefoxDriver wd) {
-    this.wd = wd;
+    super(wd);
   }
 
   public void returnToGroupPage() {
-      wd.findElement(By.linkText("group page")).click();
+      click(By.linkText("group page"));
   }
 
   public void fillGroupForm(GroupData groupData) {
@@ -25,29 +24,19 @@ public class GropuHelper {
     type(By.name("group_footer"), groupData.getFooter());
   }
 
-  private void type(By locator, String text) {
-    wd.findElement(locator).click();
-    wd.findElement(locator).clear();
-    wd.findElement(locator).sendKeys(text);
-  }
-
   public void initGroupCreation() {
-      wd.findElement(By.name("new")).click();
+      click(By.name("new"));
   }
 
   public void submitGroupCreation() {
-    click();
-  }
-
-  private void click() {
-    wd.findElement(By.name("submit")).click();
+    click(By.name("submit"));
   }
 
   public void deleteSelectedGroups() {
-      wd.findElement(By.name("delete")).click();
+     click(By.name("delete"));
   }
 
   public void selectGroup() {
-      wd.findElement(By.name("selected[]")).click();
+      click(By.name("selected[]"));
   }
 }
