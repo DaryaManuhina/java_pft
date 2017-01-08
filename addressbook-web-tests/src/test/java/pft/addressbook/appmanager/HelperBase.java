@@ -17,8 +17,14 @@ public class HelperBase {
 
   public void type(By locator, String text) {
     click(locator);
-    wd.findElement(locator).clear();
-    wd.findElement(locator).sendKeys(text);
+        if(text != null) { // проверка на оставление значения по умолчанию
+      String existingText = wd.findElement(locator).getAttribute("value"); // проверка что новое значение совпадает со значением по умолчанию
+      if (! text.equals(existingText)) {
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(text);
+      }
+    }
+
   }
 
   public void click(By locator) {
