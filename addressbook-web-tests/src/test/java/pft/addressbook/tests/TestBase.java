@@ -1,5 +1,6 @@
 package pft.addressbook.tests;
 
+import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import pft.addressbook.appmanager.ApplicatiomManager;
@@ -9,7 +10,7 @@ import pft.addressbook.appmanager.ApplicatiomManager;
  */
 public class TestBase {
 
-  protected final ApplicatiomManager app = new ApplicatiomManager();
+  protected final ApplicatiomManager app = new ApplicatiomManager(BrowserType.CHROME);
 
   @BeforeMethod
   public void setUp() throws Exception {
