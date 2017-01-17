@@ -9,10 +9,8 @@ public class GroupCreationTests extends TestBase {
     @Test
     public void testGroupCreation() {
         app.getNavigationHelper().goToGroupPage();
-        app.getGropuHelper().initGroupCreation();
-        app.getGropuHelper().fillGroupForm(new GroupData("Name", "Header", "Footer"));
-        app.getGropuHelper().submitGroupCreation();
-        app.getGropuHelper().returnToGroupPage();
+        app.getGropuHelper().createGroup(new GroupData("Name", "Header", "Footer"));
+
     }
 
 }
