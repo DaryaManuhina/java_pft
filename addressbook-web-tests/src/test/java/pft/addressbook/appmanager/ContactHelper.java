@@ -38,9 +38,11 @@ public class ContactHelper extends HelperBase{
   }
 
 
-   public void initeContatModifiation() {
+   public void initeContatModifiation(int index) {
     //click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"))
-     click(By.cssSelector("img[alt='Edit']")) ;}
+     //click(By.cssSelector("img[alt='Edit']")) ;}
+     wd.findElements(By.cssSelector("img[alt='Edit']")).get(index).click();
+  }
 
   public void subminContactUpdate() { //click(By.xpath("//div[@id='content']/form[1]/input[22]"))
     click(By.name("update")); }
@@ -57,5 +59,9 @@ public class ContactHelper extends HelperBase{
    initContactCreation();
    fillContactForm(contact, true);
    submitContactCreation();
+  }
+
+  public int getContactCount() {
+    return wd.findElements(By.name("selected[]")).size() -1;
   }
 }

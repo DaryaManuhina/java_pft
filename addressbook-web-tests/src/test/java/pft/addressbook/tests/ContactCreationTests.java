@@ -1,5 +1,6 @@
 package pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import org.openqa.selenium.*;
@@ -11,8 +12,12 @@ public class ContactCreationTests extends TestBase {
     public void testContactCreation() {
 
         //app.getNavigationHelper().goToHomePage();
+        int before = app.getContactHelper().getContactCount();
         app.getContactHelper().createContact(new ContactData("Dasha", "Test", "test"));
         app.getNavigationHelper().goToHomePage();
+        int after = app.getContactHelper().getContactCount();
+        Assert.assertEquals(after, before+1);
+
     }
 
 
