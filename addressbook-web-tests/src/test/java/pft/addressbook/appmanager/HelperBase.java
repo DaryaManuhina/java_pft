@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.testng.Reporter;
 
 
 /**
@@ -46,7 +47,12 @@ public class HelperBase {
       wd.findElement(locator);
       return true;
     } catch (NoSuchElementException ex){
-      return false;
+      Reporter.log("Element: " +locator+ ", is not available on page - "
+              +wd.getCurrentUrl());
+      return  false;
+    }
+
+
     }
   }
-}
+
