@@ -6,6 +6,7 @@ import org.testng.Reporter;
 import org.testng.annotations.Test;
 import pft.addressbook.model.GroupData;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -23,11 +24,19 @@ public class GroupModificationTests extends TestBase {
     List<GroupData> before = app.getGropuHelper().getGroupList();
     app.getGropuHelper().selectGroup(before.size() -1);
     app.getGropuHelper().initGroupModification();
-    app.getGropuHelper().fillGroupForm(new GroupData("test", "header", null));
+
+    GroupData group = new GroupData(before.get(before.size() -1).getId(),"test", "header", null);
+    app.getGropuHelper().fillGroupForm(group);
     app.getGropuHelper().submitGroupModification();
     app.getGropuHelper().returnToGroupPage();
     List<GroupData> after = app.getGropuHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size());
+
+    before.remove(before.size() -1);
+    before.add(group);
+// преобразуем списки в множества для сравнения, так как множества порядок не важен (множества - не упорядоченная коллекция)
+    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+
 
   }
 }
