@@ -1,6 +1,7 @@
 package pft.addressbook.tests;
 
 import org.junit.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pft.addressbook.model.ContactData;
 
@@ -11,25 +12,31 @@ import java.util.List;
  */
 public class ContactDelTest extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions()
+  {
+    app.goTo().homePage();
+
+    if (app.contact().getContactList().size() == 0){
+      app.contact().create(new ContactData("testname1", "testlastname", null));
+    }
+  }
+
   @Test
   public void testContactDel(){
-    app.getNavigationHelper().goToHomePage();
+       //int before = app.contact().getContactCount();
+    List<ContactData> before = app.contact().getContactList();
+    int index = before.size() - 1;
 
-    if (! app.getContactHelper().isThereAContact()){
-      app.getContactHelper().createContact(new ContactData("testname1", "testlastname", null));
-    }
-    //int before = app.getContactHelper().getContactCount();
-    List<ContactData> before = app.getContactHelper().getContactList();
-
-    app.getContactHelper().initeContatModifiation(before.size() - 1); //app.getContactHelper().selectContact();
-    app.getContactHelper().deleteContact();
-    app.getNavigationHelper().goToHomePage();
-    //int after = app.getContactHelper().getContactCount();
-    List<ContactData> after = app.getContactHelper().getContactList();
+    app.contact().del(index);
+    //int after = app.contact().getContactCount();
+    List<ContactData> after = app.contact().getContactList();
    // Assert.assertEquals(after , before -1);
-    Assert.assertEquals(after.size() , before.size() - 1);
-    before.remove(before.size() - 1);
+    Assert.assertEquals(after.size() , index);
+    before.remove(index);
     Assert.assertEquals(after , before);
 
   }
+
+
 }

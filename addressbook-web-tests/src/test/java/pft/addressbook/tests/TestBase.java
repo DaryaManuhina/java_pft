@@ -1,8 +1,8 @@
 package pft.addressbook.tests;
 
 import org.openqa.selenium.remote.BrowserType;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import pft.addressbook.appmanager.ApplicatiomManager;
 
 /**
@@ -10,14 +10,14 @@ import pft.addressbook.appmanager.ApplicatiomManager;
  */
 public class TestBase {
 
-  protected final ApplicatiomManager app = new ApplicatiomManager(BrowserType.CHROME);
+  protected static final ApplicatiomManager app = new ApplicatiomManager(BrowserType.CHROME);
 
-  @BeforeMethod
-  public void setUp() throws Exception {
+  @BeforeSuite
+    public void setUp() throws Exception {
     app.inite();
   }
 
-  @AfterMethod
+  @AfterSuite
   public void tearDown() {
     app.stop();
   }

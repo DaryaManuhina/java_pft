@@ -52,15 +52,15 @@ public class ApplicatiomManager {
   public void stop() {wd.quit();
   }
 
-  public GropuHelper getGropuHelper() {
+  public GropuHelper group() {
     return gropuHelper;
   }
 
-  public NavigationHelper getNavigationHelper() {
+  public NavigationHelper goTo() {
     return navigationHelper;
   }
 
-  public ContactHelper getContactHelper() {
+  public ContactHelper contact() {
     return contactHelper;
   }
   public SessionHelper getSessionHelper() {

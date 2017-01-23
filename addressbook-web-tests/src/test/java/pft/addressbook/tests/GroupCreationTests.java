@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupCreationTests extends TestBase {
@@ -13,13 +12,13 @@ public class GroupCreationTests extends TestBase {
 
     @Test
     public void testGroupCreation() {
-        app.getNavigationHelper().goToGroupPage();
-        List<GroupData> before = app.getGropuHelper().getGroupList();
-       // int before = app.getGropuHelper().getGroupCount();
+        app.goTo().groupPage();
+        List<GroupData> before = app.group().getGroupList();
+       // int before = app.group().getGroupCount();
         GroupData group = new GroupData("Name", "Header", "Footer");
-        app.getGropuHelper().createGroup(group);
-        List<GroupData> after = app.getGropuHelper().getGroupList();
-      //  int after = app.getGropuHelper().getGroupCount();
+        app.group().create(group);
+        List<GroupData> after = app.group().getGroupList();
+      //  int after = app.group().getGroupCount();
         Assert.assertEquals(after.size(), before.size()+1);
         // Вариант 1. нужно узнать макимальный идентификатор maxId, чтобы добавить новую группу  идентификатором maxId+1
 /*       int max = 0;
@@ -38,7 +37,7 @@ public class GroupCreationTests extends TestBase {
         Comparator<? super GroupData> byId  = (g1 , g2 ) -> Integer.compare(g1.getId(), g2.getId());
         before.sort(byId);
         after.sort(byId);
-       // Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+              // Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
         Assert.assertEquals(before, after);
 
 

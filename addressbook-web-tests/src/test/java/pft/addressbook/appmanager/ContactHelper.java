@@ -68,11 +68,29 @@ public class ContactHelper extends HelperBase {
     return isElementPresent(By.name("selected[]"));
   }
 
-  public void createContact(ContactData contact) {
+  public void create(ContactData contact) {
     initContactCreation();
     fillContactForm(contact, true);
     submitContactCreation();
   }
+
+  public void modify(int index, ContactData contact) {
+    initeContatModifiation(index);
+    fillContactForm(contact , false);
+    subminContactUpdate();
+    goToHomePage();
+  }
+
+  public void del(int index) {
+    initeContatModifiation(index); //app.contact().selectContact();
+    deleteContact();
+    goToHomePage();
+  }
+
+  private void goToHomePage() {
+   if (isElementPresent(By.id("maintable"))){return;}
+      click(By.xpath("//div[@id='nav']//a[.='home']")); // click(By.linkText("home"));
+      }
 
   public int getContactCount() {
     return wd.findElements(By.name("selected[]")).size() - 1;

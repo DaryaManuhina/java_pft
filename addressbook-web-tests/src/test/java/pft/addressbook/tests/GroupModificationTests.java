@@ -2,13 +2,11 @@ package pft.addressbook.tests;
 
 
 import org.testng.Assert;
-import org.testng.Reporter;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pft.addressbook.model.GroupData;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -16,25 +14,28 @@ import java.util.List;
  */
 public class GroupModificationTests extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions (){
+    app.goTo().groupPage();
+
+    if (app.group().getGroupList().size() == 0){
+      app.group().create(new GroupData("Name", "Header", "Footer"));
+    }
+  }
+
   @Test
   public void testGroupModification() {
-    app.getNavigationHelper().goToGroupPage();
 
-    if (! app.getGropuHelper().isThereAGroup()){
-      app.getGropuHelper().createGroup(new GroupData("Name", "Header", "Footer"));
-    }
-    List<GroupData> before = app.getGropuHelper().getGroupList();
-    app.getGropuHelper().selectGroup(before.size() -1);
-    app.getGropuHelper().initGroupModification();
+    List<GroupData> before = app.group().getGroupList();
+    int index= before.size() -1;
+    GroupData group = new GroupData(before.get(index).getId(),"test", "header", null);
 
-    GroupData group = new GroupData(before.get(before.size() -1).getId(),"test", "header", null);
-    app.getGropuHelper().fillGroupForm(group);
-    app.getGropuHelper().submitGroupModification();
-    app.getGropuHelper().returnToGroupPage();
-    List<GroupData> after = app.getGropuHelper().getGroupList();
+    app.group().modify(index, group);
+
+    List<GroupData> after = app.group().getGroupList();
     Assert.assertEquals(after.size(), before.size());
 
-    before.remove(before.size() -1);
+    before.remove(index);
     before.add(group);
     Comparator<? super GroupData> byId  = (g1 , g2 ) -> Integer.compare(g1.getId(), g2.getId());
     before.sort(byId);
@@ -45,4 +46,6 @@ public class GroupModificationTests extends TestBase {
     Assert.assertEquals(before, after);
 
   }
+
+
 }
