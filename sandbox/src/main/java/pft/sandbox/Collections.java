@@ -28,9 +28,8 @@ public class Collections {
     langList.add("Java");
     langList.add("C#");
     langList.add("PHP");
-
-    for (String l: langList){
-      System.out.println("I Need in " + l);
+        for (String l: langList){
+            System.out.println("I Need in " + l);
     }
     List<String> langListNew = Arrays.asList("Java", "C#", "Phyton", "PHP" );
     for (int i = 0; i < langListNew.size(); i++) {
@@ -38,4 +37,8 @@ public class Collections {
     }
 
   }
+
+
+
+
   }
