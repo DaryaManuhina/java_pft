@@ -18,7 +18,7 @@ public class ContactModificationTests extends TestBase{
     app.goTo().homePage();
 
     if (app.contact().getContactList().size() == 0){
-      app.contact().create(new ContactData("testname1", "testlastname", null));
+      app.contact().create(new ContactData().whithFirstname("testname1").whithLastname("testlastname"));
     }
   }
 
@@ -27,7 +27,7 @@ public class ContactModificationTests extends TestBase{
 
     List<ContactData> before = app.contact().getContactList();
     int index = before.size() -1;
-    ContactData contact = new ContactData(before.get(index).getId(), "testname1", "testlastname", null);
+    ContactData contact = new ContactData().whithId(before.get(index).getId()).whithFirstname("testname1").whithLastname("testlastname");
 
     app.contact().modify(index, contact);
 

@@ -18,7 +18,7 @@ public class ContactDelTest extends TestBase {
     app.goTo().homePage();
 
     if (app.contact().getContactList().size() == 0){
-      app.contact().create(new ContactData("testname1", "testlastname", null));
+      app.contact().create(new ContactData().whithFirstname("testname1").whithLastname("testlastname"));
     }
   }
 

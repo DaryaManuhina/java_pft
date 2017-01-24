@@ -1,24 +1,11 @@
 package pft.addressbook.model;
 
 public class ContactData {
-  private  int id;
-  private final String firstname;
-  private final String lastname;
+  private  int id  = Integer.MAX_VALUE;
+  private  String firstname;
+  private  String lastname;
   private String group;
 
-  public ContactData(int id, String firstname, String lastname, String group) {
-    this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.group = group;
-  }
-
-  public ContactData(String firstname, String lastname, String group) {
-    this.id = Integer.MAX_VALUE;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.group = group;
-  }
 
   @Override
   public boolean equals(Object o) {
@@ -51,8 +38,24 @@ public class ContactData {
   }
   public int getId() { return id;}
 
-  public void setId(int id) {
+  public ContactData whithId(int id) {
     this.id = id;
+    return this;
+  }
+
+  public ContactData  whithFirstname(String firstname) {
+    this.firstname = firstname;
+    return this;
+  }
+
+  public ContactData  whithLastname(String lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
+  public ContactData  whithGroup(String group) {
+    this.group = group;
+    return this;
   }
 
   @Override
