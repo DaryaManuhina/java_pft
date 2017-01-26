@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import pft.addressbook.model.ContactData;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by asus-1 on 28.12.2016.
@@ -17,23 +18,19 @@ public class ContactDelTest extends TestBase {
   {
     app.goTo().homePage();
 
-    if (app.contact().getContactList().size() == 0){
+    if (app.contact().allContact().size() == 0){
       app.contact().create(new ContactData().whithFirstname("testname1").whithLastname("testlastname"));
     }
   }
 
   @Test
   public void testContactDel(){
-       //int before = app.contact().getContactCount();
-    List<ContactData> before = app.contact().getContactList();
-    int index = before.size() - 1;
-
-    app.contact().del(index);
-    //int after = app.contact().getContactCount();
-    List<ContactData> after = app.contact().getContactList();
-   // Assert.assertEquals(after , before -1);
-    Assert.assertEquals(after.size() , index);
-    before.remove(index);
+    Set<ContactData> before = app.contact().allContact();
+    ContactData deletedContact = before.iterator().next();
+    app.contact().del(deletedContact);
+    Set<ContactData> after = app.contact().allContact();
+    Assert.assertEquals(after.size() , before.size() - 1);
+    before.remove(deletedContact);
     Assert.assertEquals(after , before);
 
   }

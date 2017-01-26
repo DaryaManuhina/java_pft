@@ -7,6 +7,7 @@ import pft.addressbook.model.ContactData;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactCreationTests extends TestBase {
 
@@ -15,17 +16,16 @@ public class ContactCreationTests extends TestBase {
 
     //app.goTo().homePage();
 
-    List<ContactData> before = app.contact().getContactList();
+    Set<ContactData> before = app.contact().allContact();
     ContactData contact = new ContactData().whithFirstname("Dasha").whithLastname("Test").whithGroup("test");
     app.contact().create(contact);
     app.goTo().homePage();
 
-    List<ContactData> after = app.contact().getContactList();
+    Set<ContactData> after = app.contact().allContact();
     Assert.assertEquals(after.size(), before.size() + 1);
+    //узнаем id добавленного контакте- максимальный id в списке после добавления. преобразуем объект в число
+    contact.whithId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
     before.add(contact);
-    Comparator<? super ContactData> byId  = (c1 , c2 ) -> Integer.compare(c1.getId(), c2.getId());
-    before.sort(byId);
-    after.sort(byId);
     Assert.assertEquals(before, after);
 
 
