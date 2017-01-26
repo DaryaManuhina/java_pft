@@ -1,12 +1,11 @@
 package pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import pft.addressbook.model.GroupData;
+import pft.addressbook.model.Groups;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.junit.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase {
 
@@ -14,33 +13,15 @@ public class GroupCreationTests extends TestBase {
     @Test
     public void testGroupCreation() {
         app.goTo().groupPage();
-        Set<GroupData> before = app.group().allGroups();
+        Groups before = app.group().allGroups();
         GroupData group = new GroupData().withName("test");
         app.group().create(group);
-        Set<GroupData> after = app.group().allGroups();
-        Assert.assertEquals(after.size(), before.size()+1);
-        // Вариант 1. нужно узнать макимальный идентификатор maxId, чтобы добавить новую группу  идентификатором maxId+1
-/*       int max = 0;
-       for (GroupData g : after){
-           if (g.getId() > max) {
-               max =   g.getId();
-           }
-
-       }
-        group.setId(max);*/
-       //Вариант 2.  првератим список в поток спавнение с помощью компаратора и ананимные функции
-       // group.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
-
-        //Вариант 3. сравниваем упорядоченные списки
-       /* before.add(group);
-        Comparator<? super GroupData> byId  = (g1 , g2 ) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);*/
-              // Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
-        // преобразуем объекты в числа и сравним их
-        group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
-        before.add(group);
-        Assert.assertEquals(before, after);
+        Groups after = app.group().allGroups();
+       //hamcrest: Fluent интерфейс проверки
+        assertThat(after.size(), equalTo(before.size()+1));
+        //hamcrest: Fluent проверки
+        assertThat(after, equalTo(
+                before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
 
     }

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import pft.addressbook.model.GroupData;
+import pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -104,8 +105,8 @@ public class GropuHelper extends HelperBase {
 
   // метод, возвращающий множество групп
 
-  public Set<GroupData> allGroups() {
-    Set<GroupData> groups = new HashSet<>();
+  public Groups allGroups() {
+    Groups groups = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element:elements){
       String name = element.getText();
