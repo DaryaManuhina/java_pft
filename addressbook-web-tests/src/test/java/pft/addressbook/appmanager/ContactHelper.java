@@ -78,6 +78,7 @@ public class ContactHelper extends HelperBase {
   public void create(ContactData contact) {
     initContactCreation();
     fillContactForm(contact, true);
+    contactCash = null;
     submitContactCreation();
   }
 
@@ -85,6 +86,7 @@ public class ContactHelper extends HelperBase {
     initeContatModifiationById(contact.getId());
     fillContactForm(contact , false);
     subminContactUpdate();
+    contactCash = null;
     goToHomePage();
   }
 
@@ -96,6 +98,7 @@ public class ContactHelper extends HelperBase {
   public void del(ContactData contact) {
     initeContatModifiationById(contact.getId()); //app.contact().selectContact();
     deleteContact();
+    contactCash = null;
     goToHomePage();
   }
 
@@ -122,18 +125,19 @@ public class ContactHelper extends HelperBase {
     }
     return contacts;
   }
-
+private Contacts contactCash = null;
   public Contacts allContact() {
-    Contacts contacts = new Contacts();
+    if (contactCash != null){return new Contacts(contactCash);}
+    contactCash = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       String firstName = element.findElement(By.xpath("td[3]")).getText();
       String lastName = element.findElement(By.xpath("td[2]")).getText();
       int id = Integer.parseInt(element.findElement(By.xpath("td[1]")).findElement(By.tagName("input")).getAttribute("value"));
       ContactData contact = new ContactData().whithId(id).whithFirstname(firstName).whithLastname(lastName);
-      contacts.add(contact);
+      contactCash.add(contact);
     }
-    return contacts;
+    return contactCash;
   }
 
 
