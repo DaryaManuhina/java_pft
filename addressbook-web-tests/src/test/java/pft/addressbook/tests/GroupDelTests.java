@@ -30,8 +30,9 @@ public class GroupDelTests extends TestBase {
         Groups before = app.group().allGroups();
         GroupData deletedGroup = before.iterator().next();
         app.group().del(deletedGroup);
+        assertEquals(app.group().count() , before.size() - 1);
         Groups after = app.group().allGroups();
-        assertEquals(after.size(), before.size()-1); // сравниваем размеры списоков
+        //assertEquals(after.size(), before.size()-1); // сравниваем размеры списоков
 
         //before.remove(deletedGroup);
         //assertEquals(before, after); // сравниваем сами списки
