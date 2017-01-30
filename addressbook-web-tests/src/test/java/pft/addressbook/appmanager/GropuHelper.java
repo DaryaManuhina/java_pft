@@ -61,6 +61,7 @@ public class GropuHelper extends HelperBase {
     initGroupCreation();
     fillGroupForm(group);
     submitGroupCreation();
+    groupCash = null;
     returnToGroupPage();
   }
 
@@ -69,16 +70,18 @@ public class GropuHelper extends HelperBase {
     initGroupModification();
     fillGroupForm(group);
     submitGroupModification();
+    groupCash = null;
     returnToGroupPage();
   }
   public void del(int index) {
     selectGroup(index);
     deleteSelectedGroups();
-    returnToGroupPage();
+   returnToGroupPage();
   }
   public void del(GroupData group) {
     selectGroupById(group.getId());
     deleteSelectedGroups();
+    groupCash = null;
     returnToGroupPage();
   }
 
@@ -103,17 +106,19 @@ public class GropuHelper extends HelperBase {
     return groups;
   }
 
-  // метод, возвращающий множество групп
+  private Groups groupCash = null;
 
+  // метод, возвращающий множество групп
   public Groups allGroups() {
-    Groups groups = new Groups();
+    if (groupCash != null) {return groupCash;} // возвращаем копию кэша, чтобы его не испортить
+    groupCash = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element:elements){
       String name = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      groups.add(new GroupData().withId(id).withName(name));
+      groupCash.add(new GroupData().withId(id).withName(name));
     }
-    return groups;
+    return groupCash;
   }
 
 
