@@ -27,10 +27,10 @@ public class ContactCreationTests extends TestBase {
     ContactData contact = new ContactData().whithFirstname("Dasha").whithLastname("Test").whithGroup("test");
     app.contact().create(contact);
     app.goTo().homePage();
-
+    assertThat(app.contact().getContactCount(), equalTo(before.size()+1));
     Contacts after = app.contact().allContact();
    // assertEquals(after.size(), before.size() + 1);
-    assertThat(after.size(), equalTo(before.size() + 1));
+   // assertThat(after.size(), equalTo(before.size() + 1));
     //узнаем id добавленного контакте- максимальный id в списке после добавления. преобразуем объект в число
     //contact.whithId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
     //before.add(contact);

@@ -110,7 +110,7 @@ public class ContactHelper extends HelperBase {
       }
 
   public int getContactCount() {
-    return wd.findElements(By.name("selected[]")).size() - 1;
+    return wd.findElements(By.name("selected[]")).size();
   }
 
   public List<ContactData> getContactList() {
