@@ -27,13 +27,13 @@ public class Groups extends ForwardingSet <GroupData> {
   }
 
   public Groups withAdded (GroupData group) {
-    Groups groups = new Groups(this);
-    groups.add(group);
+    Groups groups = new Groups(this); // строим копию сущетвующего объекта
+    groups.add(group); // добавляем к копии новую группу
     return groups;
   }
 
   public Groups withOut (GroupData group) {
-    Groups groups = new Groups(this);
+    Groups groups = new Groups(this); // строим копию сущетвующего объекта
     groups.remove(group);
     return groups;
   }

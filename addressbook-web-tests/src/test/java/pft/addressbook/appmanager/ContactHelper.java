@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import pft.addressbook.model.ContactData;
 import org.testng.Assert;
+import pft.addressbook.model.Contacts;
 
 
 import java.util.ArrayList;
@@ -122,8 +123,8 @@ public class ContactHelper extends HelperBase {
     return contacts;
   }
 
-  public Set<ContactData> allContact() {
-    Set<ContactData> contacts = new HashSet<>();
+  public Contacts allContact() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("entry"));
     for (WebElement element : elements) {
       String firstName = element.findElement(By.xpath("td[3]")).getText();
